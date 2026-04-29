@@ -41,11 +41,17 @@ public class AdoptionService {
         log.info("Obteniendo pets disponibles para adopción");
         // TODO: llamar a petRepository.findAllByAvailableTrue(), mapear cada Pet a AvailablePetResponse
 
-//        return petRepository.findAllByAvailableTrue()
-//                .stream()
-//                .map(AdoptionController.AvailablePetResponse)
-//                .toList();
-        throw new UnsupportedOperationException("TODO: implementar listAvailablePets");
+        return petRepository.findAllByAvailableTrue()
+                .stream()
+                .map(pet -> new AdoptionController.AvailablePetResponse(
+                        pet.getId(),
+                        pet.getName(),
+                        pet.getRace(),
+                        pet.getColor(),
+                        pet.getAge()
+                        // ajusta los campos según tu record AvailablePetResponse
+                ))
+                .toList();
     }
 
     /**
@@ -85,8 +91,10 @@ public class AdoptionService {
         var cant = adoptionRepository.countByUserIdAndStatus(request.userId(),AdoptionStatus.ACTIVE);
         if (cant>=3) throw new MaxAdoptionsReachedException("User ha alcanzado el limite de adopciones");
 
-        var savedAdoption = adoptionRepository.save(new Adoption(userDB.get(), petDB.get()));
+        petDB.get().setAvailable(false);
+        petRepository.save(petDB.get());
 
+        var savedAdoption = adoptionRepository.save(new Adoption(userDB.get(), petDB.get()));
         return mapToResponse(savedAdoption);
     }
 
