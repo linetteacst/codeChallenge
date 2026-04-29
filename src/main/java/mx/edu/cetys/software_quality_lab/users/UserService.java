@@ -25,9 +25,9 @@ public class UserService {
     public static boolean isValidUsername(String user){
         if (user == null) return false;
         if(user.length()<5 || user.length() > 20) return false;
-        if(user.charAt(0) == '-' || user.charAt(user.length()-1) == '-') return false;
+        if(user.charAt(0) == '_' || user.charAt(user.length()-1) == '_') return false;
         for (char c : user.toCharArray()){
-            if (!Character.isLowerCase(c) && !Character.isDigit(c) && c != '-') return false;
+            if (!Character.isLowerCase(c) && !Character.isDigit(c) && c != '_') return false;
         }
         return true;
     }
@@ -73,12 +73,12 @@ public class UserService {
         if(!isValidName(request.lastName())) throw new InvalidUserDataException("Información no válida");
 
         // 4. Age        — debe ser mayor a 12 y menor o igual a 120
-        if (request.age() < 12 || request.age()<120) throw new InvalidUserDataException("Información no válida");
+        if (request.age() <= 12 || request.age() > 120)throw new InvalidUserDataException("Información no válida");
 
         //5. Phone      — exactamente 10 dígitos, sin letras ni símbolos
         if(request.phone().length()!=10) throw new InvalidUserDataException("Información no válida");
         for(char c : request.phone().toCharArray()){
-            if (Character.isDigit(c)){
+            if (!Character.isDigit(c)){
                 throw new InvalidUserDataException("Información no válida");
             }
         }
@@ -141,7 +141,8 @@ public class UserService {
 
         if(userDB.get().getStatus().equals(UserStatus.SUSPENDED)) throw new InvalidUserDataException("El usuario ya se encuentra suspendido");
 
-        userDB.get().setStatus(UserStatus.ACTIVE);
+        userDB.get().setStatus(UserStatus.SUSPENDED);
+        userRepository.save(userDB.get());
 
         return mapToResponse(userDB.get());
     }
