@@ -2,23 +2,23 @@
 
 ## Equipo
 
-**Nombre del equipo:** <!-- Nombre de su equipo -->
+**Nombre del equipo:** Los de Atras
 
 | Nombre completo | Matrícula |
-|---|---|
-| Estudiante 1 | 000000 |
-| Estudiante 2 | 000000 |
-| Estudiante 3 | 000000 |
+|---|-------|
+| Estudiante 1 | 13749 |
+| Estudiante 2 | 13798 |
+| Estudiante 3 | 13699 |
 
 ---
 
 ## Entrega
 
-**Fecha:** <!-- Fecha de entrega -->
+**Fecha:** 28 Abril 2026
 
-**Modalidad:** <!-- ZIP / GitHub -->
+**Modalidad:** GitHub
 
-**Link del repositorio (si aplica):** <!-- https://github.com/... -->
+**Link del repositorio (si aplica):** https://github.com/linetteacst/codeChallenge.git
 
 ---
 
