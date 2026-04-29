@@ -28,12 +28,20 @@
 
 <!-- Describan brevemente qué hicieron, dificultades que encontraron o decisiones que tomaron -->
 
-### Cobertura obtenida
+### Cobertura obtenida User Service Test
 
 | Métrica | Resultado |
 |---|---|
-| Line coverage | <!-- ej. 91% --> |
-| Branch coverage | <!-- ej. 87% --> |
+| Line coverage | <!-- ej. 91% --> 87% |
+| Branch coverage | <!-- ej. 87% --> 85%|
+
+---
+### Cobertura obtenida User Controller Integration Test
+
+| Métrica | Resultado |
+|---|---|
+| Line coverage | <!-- ej. 91% --> 93% |
+| Branch coverage | <!-- ej. 87% --> 87%|
 
 ---
 
