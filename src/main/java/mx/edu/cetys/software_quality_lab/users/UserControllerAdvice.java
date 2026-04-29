@@ -16,20 +16,20 @@ public class UserControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ApiResponse<Void> handleInvalidUserData(InvalidUserDataException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handleInvalidUserData");
+        return new ApiResponse<>("Invalid User Info", null, ex.getMessage());
     }
 
     // TODO: regresar HTTP 404 cuando el usuario no se encuentra en BD
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ApiResponse<Void> handleUserNotFound(UserNotFoundException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handleUserNotFound");
+        return new ApiResponse<>("User Not Found", null, ex.getMessage());
     }
 
     // TODO: regresar HTTP 409 cuando el username ya está registrado
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     ApiResponse<Void> handleDuplicateUsername(DuplicateUsernameException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handleDuplicateUsername");
+        return new ApiResponse<>("User Conflict", null, ex.getMessage());
     }
 }

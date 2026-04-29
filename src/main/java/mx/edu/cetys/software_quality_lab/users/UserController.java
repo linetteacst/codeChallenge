@@ -24,7 +24,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED) // HTTP 201: recurso creado exitosamente
     ApiResponse<UserWrapper> registerUser(@RequestBody UserRequest request) {
         // TODO: llamar a userService.registerUser, envolver en ApiResponse y regresar
-        throw new UnsupportedOperationException("TODO: implementar endpoint registerUser");
+        var savedUser = userService.registerUser(request);
+        return new ApiResponse<>("Usuario creado exitosamente", new UserWrapper(savedUser), null);
     }
 
     // GET /users/{id} — obtener un usuario por ID
@@ -32,7 +33,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK) // HTTP 200: solicitud exitosa
     ApiResponse<UserWrapper> getUserById(@PathVariable Long id) {
         // TODO: llamar a userService.getUserById, envolver en ApiResponse y regresar
-        throw new UnsupportedOperationException("TODO: implementar endpoint getUserById");
+        var user = userService.getUserById(id);
+        return new ApiResponse<>("Usuario encontrado", new UserWrapper(user), null);
     }
 
     // PATCH /users/{id}/suspend — suspender un usuario activo
@@ -40,6 +42,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<UserWrapper> suspendUser(@PathVariable Long id) {
         // TODO: llamar a userService.suspendUser, envolver en ApiResponse y regresar
-        throw new UnsupportedOperationException("TODO: implementar endpoint suspendUser");
+        var suspendedUser = userService.suspendUser(id);
+        return new ApiResponse<>("Usuario suspendido", new UserWrapper(suspendedUser), null);
     }
 }
