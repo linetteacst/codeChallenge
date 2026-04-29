@@ -28,8 +28,8 @@ public class AdoptionController {
     @GetMapping("/pets")
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<List<AvailablePetResponse>> listAvailablePets() {
-        // TODO: llamar a adoptionService.listAvailablePets, envolver en ApiResponse y regresar
-        throw new UnsupportedOperationException("TODO: implementar endpoint listAvailablePets");
+        var pets = adoptionService.listAvailablePets();
+        return new ApiResponse<>("Pets disponibles", pets, null);
     }
 
     // POST /petstore/adoptions — crear una nueva adopción
