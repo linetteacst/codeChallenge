@@ -91,6 +91,87 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
+    void shouldReturn400WhenUsernameHasUppercase() throws Exception {
+        // TODO: body con username con upperCase
+        // TODO: realizar POST /users
+        // TODO: andExpect status 400
+
+        String body = """
+                {
+                    "username": "Juan4_dev",
+                    "firstName": "Juan",
+                    "lastName": "Perez",
+                    "phone": "6641234567",
+                    "email": "jun4#gmal.com",
+                    "age": 25
+                }""";
+
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").isNotEmpty());
+    }
+
+    @Test
+    void shouldReturn400WhenUsernameStartsWithUnderscore() throws Exception {
+        // TODO: body con username con underScore
+        // TODO: realizar POST /users
+        // TODO: andExpect status 400
+
+        String body = """
+                {
+                    "username": "_juan4",
+                    "firstName": "Juan",
+                    "lastName": "Perez",
+                    "phone": "6641234567",
+                    "email": "jun4#gmal.com",
+                    "age": 25
+                }""";
+
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturn400WhenFirstNameIsTooShort() throws Exception {
+        // TODO: body con firstName too short
+        // TODO: realizar POST /users
+        // TODO: andExpect status 400
+
+        String body = """
+                {
+                    "username": "juan4_dev",
+                    "firstName": "J",
+                    "lastName": "Perez",
+                    "phone": "6641234567",
+                    "email": "jun4#gmal.com",
+                    "age": 25
+                }""";
+
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturn400WhenLastNameHasNumbers() throws Exception {
+        // TODO: body con lastName has numbers
+        // TODO: realizar POST /users
+        // TODO: andExpect status 400
+
+        String body = """
+                {
+                    "username": "juan4_dev",
+                    "firstName": "Juan",
+                    "lastName": "Perez1",
+                    "phone": "6641234567",
+                    "email": "jun4#gmal.com",
+                    "age": 25
+                }""";
+
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void shouldReturn400WhenAgeIsExactlyTwelve() throws Exception {
         // TODO: body con age = 12 (caso límite — debe ser mayor a 12)
         // TODO: realizar POST /users
@@ -116,6 +197,26 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
+    void shouldReturn400WhenAgeIsTooHigh() throws Exception {
+        // TODO: body con age = 120 (caso límite — debe ser menor a 120)
+        // TODO: realizar POST /users
+        // TODO: andExpect status 400
+
+        String body = """
+                {
+                    "username": "juan4_dev",
+                    "firstName": "Juan",
+                    "lastName": "Perez",
+                    "phone": "6641234567",
+                    "email": "jun4#gmal.com",
+                    "age": 121
+                }""";
+
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void shouldReturn400WhenPhoneIsInvalid() throws Exception {
         // TODO: body con phone = "123" (menos de 10 dígitos)
         // TODO: realizar POST /users
@@ -127,6 +228,31 @@ public class UserControllerIntegrationTest {
                     "firstName": "Juan",
                     "lastName": "Perez",
                     "phone": "123",
+                    "email": "jun4#gmal.com",
+                    "age": 23
+                }""";
+
+        mockMvc.perform(
+                        post("/users")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(body)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").isNotEmpty());
+    }
+
+    @Test
+    void shouldReturn400WhenPhoneHasInvalidCharacter() throws Exception {
+        // TODO: body con phone = "123c456789" (10 dígitos no digit)
+        // TODO: realizar POST /users
+        // TODO: andExpect status 400
+
+        String body = """
+                {
+                    "username": "juan4_dev",
+                    "firstName": "Juan",
+                    "lastName": "Perez",
+                    "phone": "123c456789",
                     "email": "jun4#gmal.com",
                     "age": 23
                 }""";
@@ -226,6 +352,26 @@ public class UserControllerIntegrationTest {
 
         mockMvc.perform(get("/users/9999"))
                 .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").isNotEmpty());
+    }
+
+    @Test
+    void shouldReturn404WhenSuspendingNonExistentUser() throws Exception {
+        // TODO: intentar suspender un ID que no existe en la BD (ej. 9999)
+
+        mockMvc.perform(
+                        patch("/users/9999/suspend")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").isNotEmpty())
+                .andExpect(jsonPath("$.response").isEmpty());
+    }
+
+    @Test
+    void shouldReturn400WhenIdIsNegativeOrZero() throws Exception {
+        mockMvc.perform(get("/users/-1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").isNotEmpty());
     }
 
