@@ -18,27 +18,27 @@ public class PetstoreControllerAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ApiResponse<Void> handleAdoptionNotFound(AdoptionNotFoundException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handleAdoptionNotFound");
+        return new ApiResponse<>("Adoption not Found", null, ex.getMessage());
     }
 
     // TODO: regresar HTTP 409 cuando el pet ya tiene una adopción activa
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     ApiResponse<Void> handlePetAlreadyAdopted(PetAlreadyAdoptedException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handlePetAlreadyAdopted");
+        return new ApiResponse<>("Conflict in already active adoption", null, ex.getMessage());
     }
 
     // TODO: regresar HTTP 422 cuando el usuario no es elegible (suspendido o menor de 18)
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     ApiResponse<Void> handleUserNotEligible(UserNotEligibleException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handleUserNotEligible");
+        return new ApiResponse<>("User not elegible", null, ex.getMessage());
     }
 
     // TODO: regresar HTTP 422 cuando el usuario ya tiene 3 adopciones activas
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     ApiResponse<Void> handleMaxAdoptionsReached(MaxAdoptionsReachedException ex) {
-        throw new UnsupportedOperationException("TODO: implementar handleMaxAdoptionsReached");
+        return new ApiResponse<>("User exceded available adoptions", null, ex.getMessage());
     }
 }

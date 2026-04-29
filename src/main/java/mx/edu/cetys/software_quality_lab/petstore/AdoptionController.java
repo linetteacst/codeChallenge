@@ -37,7 +37,8 @@ public class AdoptionController {
     @ResponseStatus(HttpStatus.CREATED)
     ApiResponse<AdoptionWrapper> createAdoption(@RequestBody AdoptionRequest request) {
         // TODO: llamar a adoptionService.createAdoption, envolver en ApiResponse y regresar
-        throw new UnsupportedOperationException("TODO: implementar endpoint createAdoption");
+        var savedAdoption = adoptionService.createAdoption(request);
+        return new ApiResponse<>("Adopcion registrada con exito", new AdoptionWrapper(savedAdoption),null);
     }
 
     // PATCH /petstore/adoptions/{id}/cancel — cancelar una adopción activa
@@ -45,6 +46,7 @@ public class AdoptionController {
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<AdoptionWrapper> cancelAdoption(@PathVariable Long id) {
         // TODO: llamar a adoptionService.cancelAdoption, envolver en ApiResponse y regresar
-        throw new UnsupportedOperationException("TODO: implementar endpoint cancelAdoption");
+        var adoption = adoptionService.cancelAdoption(id);
+        return new ApiResponse<>("Adopci[on cancelada con exito", new AdoptionWrapper(adoption), null);
     }
 }
