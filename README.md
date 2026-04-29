@@ -67,10 +67,21 @@ Para el segundo módulo de pruebas utilizamos MockMvc y SpringBootTest para simu
 ### ¿Qué implementaron?
 
 <!-- Describan qué lograron del challenge, si lo completaron o hasta dónde llegaron -->
+Llegamos a implementar todo lo necesario del challenge, pero nos quedamos un poco cortos con el Line Coverage del Adoption Service Test, pero consideramos que con un poco mas de tiempo pudieramos haber conseguido un porcentaje.
 
-### Cobertura obtenida
+### Cobertura obtenida Adoption Service Test
 
 | Métrica | Resultado |
 |---|---|
-| Line coverage | <!-- ej. 88% --> |
-| Branch coverage | <!-- ej. 85% --> |
+| Line coverage | <!-- ej. 91% --> 67% |
+| Branch coverage | <!-- ej. 87% --> 100%|
+
+---
+### Cobertura obtenida Adoption Controller Integration Test
+
+| Métrica | Resultado |
+|---|---|
+| Line coverage | <!-- ej. 91% --> 100% |
+| Branch coverage | <!-- ej. 87% --> 95%|
+
+---
