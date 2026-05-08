@@ -1,5 +1,7 @@
 package mx.edu.cetys.software_quality_lab.users;
 
+import mx.edu.cetys.software_quality_lab.pets.PetRepository;
+import mx.edu.cetys.software_quality_lab.petstore.AdoptionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,17 @@ public class UserControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
+    private AdoptionRepository adoptionRepository;
+    @Autowired
+    private PetRepository petRepository;
+    @Autowired
     private UserRepository userRepository;
 
     // Limpiar la BD antes de cada prueba para garantizar un estado independiente
     @BeforeEach
     public void limpiarBD() {
+        adoptionRepository.deleteAll();
+        petRepository.deleteAll();
         userRepository.deleteAll();
     }
 
